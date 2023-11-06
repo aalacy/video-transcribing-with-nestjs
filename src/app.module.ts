@@ -23,7 +23,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
       }),
       inject: [ConfigService],
     }),
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ cache: true }),
     UsersModule,
     AuthModule,
     FileModule,

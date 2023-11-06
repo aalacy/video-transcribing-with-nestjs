@@ -16,8 +16,8 @@ const {
 // Use StorageSharedKeyCredential with storage account and account key
 // StorageSharedKeyCredential is only available in Node.js runtime, not in browsers
 const sharedKeyCredential = new StorageSharedKeyCredential(
-  AZURE_STORAGE_ACCOUNT_NAME!,
-  AZURE_ACCESS_KEY!,
+  AZURE_STORAGE_ACCOUNT_NAME,
+  AZURE_ACCESS_KEY,
 );
 
 const blobServiceClient = new BlobServiceClient(
