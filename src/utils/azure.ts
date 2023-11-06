@@ -6,6 +6,7 @@ import {
   BlobDeleteOptions,
 } from '@azure/storage-blob';
 import { stat } from 'fs/promises';
+import 'dotenv/config';
 
 const {
   AZURE_STORAGE_ACCOUNT_NAME,
