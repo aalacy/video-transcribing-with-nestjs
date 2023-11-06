@@ -8,7 +8,7 @@ export class FaqController {
   constructor(private readonly faqService: FaqService) {}
 
   @Get()
-  getAll(): Promise<FaqModel[]> {
+  getAll(): Promise<{ message: string; faqs: FaqModel[] }> {
     return this.faqService.all();
   }
 }
