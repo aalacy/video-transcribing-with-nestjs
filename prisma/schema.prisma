@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String?
+  photo       String?
+  role        String   @default("user")
+  provider    String   @default("email")
+  accountType String   @default("free")
+  Token       Token?
+  Code        Code?
+  Files       File[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Token {
+  id           Int      @id @default(autoincrement())
+  accessToken  String
+  refreshToken String?
+  user         User     @relation(fields: [userId], references: [id])
+  userId       Int      @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Code {
+  id        Int      @id @default(autoincrement())
+  token     String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model File {
+  id        Int      @id @default(autoincrement())
+  localPath String
+  key       String
+  fileName  String
+  lang      String   @default("en")
+  audio     String
+  thumbnail String?
+  output    String?
+  ext       String
+  vtt       String?  @db.Text
+  processId String?
+  duration  Float?
+  width     Int?
+  height    Int?
+  metadata  Json?
+  status    String   @default("uploaded")
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  visitorId String   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Faq {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
